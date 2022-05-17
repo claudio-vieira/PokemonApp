@@ -1,6 +1,6 @@
 package com.example.pokemonapp.ui
 
-import android.R
+import android.R.drawable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.data.PokemonRepository
 import com.example.pokemonapp.data.model.response.ability.AbilityDetail
-import com.example.pokemonapp.data.model.response.ability.EffectEntry
 import com.example.pokemonapp.data.model.response.pokemon.Ability
 import com.example.pokemonapp.data.model.response.pokemon.Pokemon
 import com.squareup.picasso.Picasso
@@ -54,7 +53,7 @@ class PokemonDetailViewModel(private val repository: PokemonRepository): ViewMod
 fun loadImage(view: ImageView, imageUrl: String?) {
     Picasso.get()
         .load(imageUrl)
-        .error(R.drawable.ic_dialog_alert)
+        .error(drawable.ic_dialog_alert)
         //.placeholder(R.drawable.placeholder)
         .into(view)
 }
