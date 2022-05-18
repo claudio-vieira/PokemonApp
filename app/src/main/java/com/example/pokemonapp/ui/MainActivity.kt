@@ -3,7 +3,6 @@ package com.example.pokemonapp.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ConcatAdapter
 import com.example.pokemonapp.data.model.response.pokemon.Pokemon
 import com.example.pokemonapp.databinding.ActivityMainBinding
@@ -24,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.pokemonLiveData.observe(this, Observer { pokemons ->
+        viewModel.pokemonLiveData.observe(this) { pokemons ->
             pokemonAdapter.submitList(pokemons)
-        })
+        }
 
         viewModel.getPokemons()
 
@@ -49,11 +48,4 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
-    fun toDelete(A: IntArray) {
-        A.sort()
-        for(i in 0 until A.lastIndex){
-            
-        }
-    }
 }
