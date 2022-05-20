@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pokemonapp.data.model.response.pokemon.Pokemon
+import com.example.pokemonapp.model.pokemon.Pokemon
 import com.example.pokemonapp.databinding.ItemPokemonBinding
 import com.squareup.picasso.Picasso
 

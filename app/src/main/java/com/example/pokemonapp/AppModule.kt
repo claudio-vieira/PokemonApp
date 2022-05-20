@@ -1,7 +1,7 @@
 package com.example.pokemonapp
 
-import com.example.pokemonapp.data.PokemonRepository
-import com.example.pokemonapp.data.api.PokemonApi
+import com.example.pokemonapp.api.PokemonRepository
+import com.example.pokemonapp.api.PokemonApi
 import com.example.pokemonapp.ui.MainViewModel
 import com.example.pokemonapp.ui.PokemonDetailViewModel
 import org.koin.android.viewmodel.dsl.viewModel

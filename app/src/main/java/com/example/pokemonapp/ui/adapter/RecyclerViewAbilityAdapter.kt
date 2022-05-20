@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pokemonapp.data.model.response.ability.AbilityDetail
+import com.example.pokemonapp.model.ability.AbilityDetail
 import com.example.pokemonapp.databinding.ItemActivityDetailBinding
 
 class RecyclerViewAbilityAdapter: ListAdapter<AbilityDetail, RecyclerViewAbilityAdapter.ViewHolder>(DIFF_CALLBALCK) {
