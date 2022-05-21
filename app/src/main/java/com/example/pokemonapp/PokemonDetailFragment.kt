@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.pokemonapp.databinding.FragmentPokemonDetailBinding
 import com.example.pokemonapp.ui.MainViewModel
-import com.example.pokemonapp.ui.adapter.RecyclerViewAbilityAdapter
+import com.example.pokemonapp.ui.adapter.RecyclerViewDetailAbilityAdapter
+import com.example.pokemonapp.ui.adapter.RecyclerViewDetailStatsAdapter
 import com.squareup.picasso.Picasso
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -21,7 +22,8 @@ class PokemonDetailFragment : Fragment() {
 
     private val viewmodel by sharedViewModel<MainViewModel>()
     private lateinit var binding: FragmentPokemonDetailBinding
-    private lateinit var abilityAdapter: RecyclerViewAbilityAdapter
+    private lateinit var abilityAdapter: RecyclerViewDetailAbilityAdapter
+    private lateinit var statsAdapter: RecyclerViewDetailStatsAdapter
 
 
     override fun onCreateView(
@@ -39,6 +41,9 @@ class PokemonDetailFragment : Fragment() {
     }
 
     fun setViews() {
+
+        viewmodel.pokemonSelectedLiveData.value?.abilities?.let { viewmodel.getAbilities(it) }
+
         binding.apply {
             Picasso
                 .get()
@@ -46,15 +51,15 @@ class PokemonDetailFragment : Fragment() {
                 .error(R.drawable.ic_dialog_alert)
                 .into(ivDetailPokemon)
 
-            tvDetailPokemonName.text = viewmodel.pokemonDetailLiveData.value?.name
-
+            tvDetailPokemonName.text = viewmodel.pokemonSelectedLiveData.value?.name
         }
 
-        abilityAdapter = RecyclerViewAbilityAdapter()
-        binding.recyclerDetailAbities.adapter = abilityAdapter
+        statsAdapter = RecyclerViewDetailStatsAdapter()
+        binding.recyclerDetailStats.adapter = statsAdapter
+        statsAdapter.submitList(viewmodel.pokemonSelectedLiveData.value?.stats)
 
-        viewmodel.pokemonSelectedLiveData.value?.name?.let { viewmodel.getPokemonByName(it) }
-        viewmodel.pokemonSelectedLiveData.value?.abilities?.let { viewmodel.getAbilities(it) }
+        abilityAdapter = RecyclerViewDetailAbilityAdapter()
+        binding.recyclerDetailAbities.adapter = abilityAdapter
     }
 
     fun setObservers() {

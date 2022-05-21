@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pokemonapp.databinding.ItemActivityDetailAbilitiesBinding
 import com.example.pokemonapp.model.ability.AbilityDetail
-import com.example.pokemonapp.databinding.ItemActivityDetailBinding
 
-class RecyclerViewAbilityAdapter:
-    ListAdapter<AbilityDetail, RecyclerViewAbilityAdapter.ViewHolder>(DIFF_CALLBALCK) {
+class RecyclerViewDetailAbilityAdapter:
+    ListAdapter<AbilityDetail, RecyclerViewDetailAbilityAdapter.ViewHolder>(DIFF_CALLBALCK) {
 
     companion object {
         private val DIFF_CALLBALCK = object: DiffUtil.ItemCallback<AbilityDetail>(){
@@ -31,7 +31,7 @@ class RecyclerViewAbilityAdapter:
         return holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: ItemActivityDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemActivityDetailAbilitiesBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private val LANG = "en"
 
@@ -49,7 +49,7 @@ class RecyclerViewAbilityAdapter:
         companion object {
             fun create(parent: ViewGroup) : ViewHolder {
 
-                val itemBinding = ItemActivityDetailBinding.inflate(
+                val itemBinding = ItemActivityDetailAbilitiesBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false)
 
                 return ViewHolder(itemBinding)

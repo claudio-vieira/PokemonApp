@@ -2,8 +2,7 @@
 
     <string name="app_name">PokemonApp</string>
 
-    <string name="stats">Stats</string>
-    <string name="abilities">Abilities</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail_stats">Stats</string>
+    <string name="detail_abilities">Abilities</string>
+
 </resources>
