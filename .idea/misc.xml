@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19655797101449277" />
         <entry key="app/src/main/res/layout/activity_pokemon_detail.xml" value="0.19655797101449277" />
-        <entry key="app/src/main/res/layout/fragment_pokemon_detail.xml" value="0.19655797101449277" />
+        <entry key="app/src/main/res/layout/fragment_pokemon_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_pokemon_home.xml" value="0.19655797101449277" />
         <entry key="app/src/main/res/layout/item_activity_detail.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/item_pokemon.xml" value="0.11203703703703703" />

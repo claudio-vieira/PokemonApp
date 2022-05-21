@@ -3,7 +3,6 @@ package com.example.pokemonapp
 import com.example.pokemonapp.api.PokemonRepository
 import com.example.pokemonapp.api.PokemonApi
 import com.example.pokemonapp.ui.MainViewModel
-import com.example.pokemonapp.ui.PokemonDetailViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -29,10 +28,6 @@ val viewModelModule = module {
     viewModel { MainViewModel(get()) }
 }
 
-val viewModelDetailModule = module {
-    viewModel { PokemonDetailViewModel(get()) }
-}
-
 val appModules = listOf(
-    retrofitModule, repositoryModule, viewModelModule, viewModelDetailModule
+    retrofitModule, repositoryModule, viewModelModule
 )

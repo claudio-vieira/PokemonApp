@@ -1,5 +1,6 @@
 package com.example.pokemonapp.ui.adapter
 
+import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -46,6 +47,7 @@ class RecyclerViewAdapter : ListAdapter<Pokemon, RecyclerViewAdapter.ViewHolder>
                 Picasso
                     .get()
                     .load(pokemon.sprites.other.officialArtwork.frontDefault)
+                    .error(R.drawable.ic_dialog_alert)
                     .into(imagePokemon)
             }
 

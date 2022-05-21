@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemonapp.model.ability.AbilityDetail
 import com.example.pokemonapp.databinding.ItemActivityDetailBinding
 
-class RecyclerViewAbilityAdapter: ListAdapter<AbilityDetail, RecyclerViewAbilityAdapter.ViewHolder>(DIFF_CALLBALCK) {
+class RecyclerViewAbilityAdapter:
+    ListAdapter<AbilityDetail, RecyclerViewAbilityAdapter.ViewHolder>(DIFF_CALLBALCK) {
 
     companion object {
         private val DIFF_CALLBALCK = object: DiffUtil.ItemCallback<AbilityDetail>(){
@@ -23,7 +24,7 @@ class RecyclerViewAbilityAdapter: ListAdapter<AbilityDetail, RecyclerViewAbility
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return RecyclerViewAbilityAdapter.ViewHolder.create(parent)
+        return ViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -28,24 +28,33 @@ class PokemonHomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPokemonHomeBinding.inflate(inflater,container,false)
+        return binding.root
+    }
 
-        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemons ->
-            pokemonAdapter.submitList(pokemons)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setObserves()
+        setViews()
+    }
 
+    fun setViews() {
         viewModel.getPokemons()
         initRecyclerView(binding.root)
-
-        return binding.root
     }
 
     fun initRecyclerView(view: View){
         pokemonAdapter = RecyclerViewAdapter().apply {
             gotItItemClickListener = {
+                viewModel.setPokemonSelected(it)
                 findNavController(view).navigate(R.id.action_pokemonHomeFragment_to_pokemonDetailFragment)
             }
         }
         binding.recyclerPokemon.adapter = ConcatAdapter(pokemonAdapter)
     }
 
+    fun setObserves() {
+        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemons ->
+            pokemonAdapter.submitList(pokemons)
+        }
+    }
 }
