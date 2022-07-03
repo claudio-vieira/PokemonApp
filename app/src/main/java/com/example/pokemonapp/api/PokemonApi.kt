@@ -1,6 +1,6 @@
 package com.example.pokemonapp.api
 
-import com.example.pokemonapp.model.PokemonListResponse
+import com.example.pokemonapp.model.PokemonResponse
 import com.example.pokemonapp.model.ability.AbilityDetail
 
 import com.example.pokemonapp.model.pokemon.Pokemon
@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface PokemonApi {
 
     @GET("pokemon")
-    suspend fun myPokemons(@Query("limit") limit: Int, @Query("offset") offset: Int) : PokemonListResponse
+    suspend fun myPokemons(@Query("limit") limit: Int, @Query("offset") offset: Int) : PokemonResponse
 
     @GET("{url}")
     suspend fun myPokemonsPreviousPage(@Path("url") url: String) : Response<List<Pokemon>>

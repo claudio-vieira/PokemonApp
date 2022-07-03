@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
-import androidx.recyclerview.widget.ConcatAdapter
 import com.example.pokemonapp.databinding.FragmentPokemonHomeBinding
 import com.example.pokemonapp.ui.MainViewModel
 import com.example.pokemonapp.ui.adapter.RecyclerViewAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -33,13 +35,16 @@ class PokemonHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setObserves()
         setViews()
     }
 
     fun setViews() {
-        viewModel.getPokemons()
         initRecyclerView(binding.root)
+        lifecycleScope.launch {
+            viewModel.getPokemons().collectLatest {
+                pokemonAdapter.submitData(it)
+            }
+        }
     }
 
     fun initRecyclerView(view: View){
@@ -49,12 +54,7 @@ class PokemonHomeFragment : Fragment() {
                 findNavController(view).navigate(R.id.action_pokemonHomeFragment_to_pokemonDetailFragment)
             }
         }
-        binding.recyclerPokemon.adapter = ConcatAdapter(pokemonAdapter)
+        binding.recyclerPokemon.adapter = pokemonAdapter
     }
 
-    fun setObserves() {
-        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemons ->
-            pokemonAdapter.submitList(pokemons)
-        }
-    }
 }

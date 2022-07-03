@@ -3,6 +3,7 @@ package com.example.pokemonapp.ui.adapter
 import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,8 @@ import com.example.pokemonapp.model.pokemon.Pokemon
 import com.example.pokemonapp.databinding.ItemPokemonBinding
 import com.squareup.picasso.Picasso
 
-class RecyclerViewAdapter : ListAdapter<Pokemon, RecyclerViewAdapter.ViewHolder>(DIFF_CALLBALCK) {
+class RecyclerViewAdapter :
+    PagingDataAdapter<Pokemon, RecyclerViewAdapter.ViewHolder>(DIFF_CALLBALCK){
 
     var gotItItemClickListener: ((Pokemon) -> Unit)? = null
 
@@ -31,7 +33,7 @@ class RecyclerViewAdapter : ListAdapter<Pokemon, RecyclerViewAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        return holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class ViewHolder(

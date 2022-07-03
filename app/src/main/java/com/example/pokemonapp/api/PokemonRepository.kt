@@ -1,7 +1,6 @@
 package com.example.pokemonapp.api
 
-import com.example.pokemonapp.api.PokemonApi
-import com.example.pokemonapp.model.PokemonListResponse
+import com.example.pokemonapp.model.PokemonResponse
 import com.example.pokemonapp.model.ability.AbilityDetail
 
 import com.example.pokemonapp.model.pokemon.Pokemon
@@ -10,9 +9,9 @@ import kotlinx.coroutines.withContext
 
 class PokemonRepository(private val service: PokemonApi) {
 
-    suspend fun getPokemonsListResponse(): PokemonListResponse {
+    suspend fun getPokemonsListResponse(offset: Int): PokemonResponse {
         return withContext(Dispatchers.Default){
-            service.myPokemons(10, 0)
+            service.myPokemons(10, offset)
         }
     }
 

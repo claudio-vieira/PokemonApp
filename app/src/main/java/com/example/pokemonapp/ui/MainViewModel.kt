@@ -3,18 +3,22 @@ package com.example.pokemonapp.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.pokemonapp.PokemonPagingDataSource
 import com.example.pokemonapp.api.PokemonRepository
 import com.example.pokemonapp.model.ability.AbilityDetail
 import com.example.pokemonapp.model.pokemon.Ability
 import com.example.pokemonapp.model.pokemon.Pokemon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: PokemonRepository): ViewModel() {
-
-    private val _pokemonLiveData = MutableLiveData<List<Pokemon>>()
-    val pokemonLiveData: LiveData<List<Pokemon>> = _pokemonLiveData
 
     private val _abilityDetailLiveData = MutableLiveData<List<AbilityDetail>>()
     val abilityDetailLiveData: LiveData<List<AbilityDetail>> = _abilityDetailLiveData
@@ -35,19 +39,10 @@ class MainViewModel(private val repository: PokemonRepository): ViewModel() {
         }
     }
 
-    fun getPokemons(){
-        CoroutineScope(Dispatchers.Main).launch {
-
-            val pokemonList = mutableListOf<Pokemon>()
-            val pokemons = repository.getPokemonsListResponse()
-
-            for(item in pokemons.results){
-                val pokemon = repository.myPokemonByName(item.name)
-                pokemonList.add(pokemon)
-            }
-
-            _pokemonLiveData.value = pokemonList
-        }
+    fun getPokemons(): Flow<PagingData<Pokemon>> {
+        return Pager(config = PagingConfig(pageSize = 20, prefetchDistance = 2),
+            pagingSourceFactory = { PokemonPagingDataSource(repository) }
+        ).flow.cachedIn(viewModelScope)
     }
 
     fun setPokemonSelected(pokemon: Pokemon){
