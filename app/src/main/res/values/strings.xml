@@ -4,5 +4,6 @@
 
     <string name="detail_stats">Stats</string>
     <string name="detail_abilities">Abilities</string>
+    <string name="retry_button">Retry</string>
 
 </resources>

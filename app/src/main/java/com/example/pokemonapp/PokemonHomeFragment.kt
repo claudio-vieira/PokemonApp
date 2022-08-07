@@ -15,11 +15,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PokemonHomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PokemonHomeFragment : Fragment() {
 
     private val viewModel by sharedViewModel<MainViewModel>()
@@ -57,12 +52,13 @@ class PokemonHomeFragment : Fragment() {
             }
         }
 
-        pokemonAdapter.withLoadStateHeaderAndFooter(
-            header = PagingLoadStateAdapter(retry = { pokemonAdapter.retry() }),
-            footer = PagingLoadStateAdapter(retry = { pokemonAdapter.retry() })
-        )
+        binding.recyclerPokemon.apply {
+            adapter = pokemonAdapter.withLoadStateHeaderAndFooter(
+                header = PagingLoadStateAdapter(retry = { pokemonAdapter.retry() }),
+                footer = PagingLoadStateAdapter(retry = { pokemonAdapter.retry() })
+            )
+        }
 
-        binding.recyclerPokemon.adapter = pokemonAdapter
     }
 
 }
