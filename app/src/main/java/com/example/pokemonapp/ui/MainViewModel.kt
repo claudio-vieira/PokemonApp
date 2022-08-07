@@ -40,7 +40,11 @@ class MainViewModel(private val repository: PokemonRepository): ViewModel() {
     }
 
     fun getPokemons(): Flow<PagingData<Pokemon>> {
-        return Pager(config = PagingConfig(pageSize = 20, prefetchDistance = 2),
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                prefetchDistance = 2
+            ),
             pagingSourceFactory = { PokemonPagingDataSource(repository) }
         ).flow.cachedIn(viewModelScope)
     }

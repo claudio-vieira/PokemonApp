@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import com.example.pokemonapp.databinding.FragmentPokemonHomeBinding
 import com.example.pokemonapp.ui.MainViewModel
+import com.example.pokemonapp.ui.adapter.PagingLoadStateAdapter
 import com.example.pokemonapp.ui.adapter.RecyclerViewAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,14 +23,15 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class PokemonHomeFragment : Fragment() {
 
     private val viewModel by sharedViewModel<MainViewModel>()
-    private lateinit var binding: FragmentPokemonHomeBinding
+    private var _binding: FragmentPokemonHomeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var pokemonAdapter: RecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPokemonHomeBinding.inflate(inflater,container,false)
+        _binding = FragmentPokemonHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -38,7 +40,7 @@ class PokemonHomeFragment : Fragment() {
         setViews()
     }
 
-    fun setViews() {
+    private fun setViews() {
         initRecyclerView(binding.root)
         lifecycleScope.launch {
             viewModel.getPokemons().collectLatest {
@@ -47,13 +49,19 @@ class PokemonHomeFragment : Fragment() {
         }
     }
 
-    fun initRecyclerView(view: View){
+    private fun initRecyclerView(view: View){
         pokemonAdapter = RecyclerViewAdapter().apply {
             gotItItemClickListener = {
                 viewModel.setPokemonSelected(it)
                 findNavController(view).navigate(R.id.action_pokemonHomeFragment_to_pokemonDetailFragment)
             }
         }
+
+        pokemonAdapter.withLoadStateHeaderAndFooter(
+            header = PagingLoadStateAdapter(retry = { pokemonAdapter.retry() }),
+            footer = PagingLoadStateAdapter(retry = { pokemonAdapter.retry() })
+        )
+
         binding.recyclerPokemon.adapter = pokemonAdapter
     }
 

@@ -40,7 +40,7 @@ class PokemonDetailFragment : Fragment() {
         setViews()
     }
 
-    fun setViews() {
+    private fun setViews() {
 
         viewmodel.pokemonSelectedLiveData.value?.abilities?.let { viewmodel.getAbilities(it) }
 
@@ -62,7 +62,7 @@ class PokemonDetailFragment : Fragment() {
         binding.recyclerDetailAbities.adapter = abilityAdapter
     }
 
-    fun setObservers() {
+    private fun setObservers() {
         viewmodel.abilityDetailLiveData.observe(viewLifecycleOwner) { ability ->
             abilityAdapter.submitList(ability)
         }
